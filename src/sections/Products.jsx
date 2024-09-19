@@ -3,26 +3,47 @@ import React, { useState } from 'react';
 const Products = () => {
   const [activeTab, setActiveTab] = useState('renovation');
 
+  const handleImageClick = (productId) => {
+    console.log(`Voir plus d'infos sur le produit ${productId}`);
+  };
+
   const tabs = [
     {
       id: 'renovation',
       title: 'Rénovation',
       content: (
-        <div className="space-y-6">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <img src="https://via.placeholder.com/250x250?text=Fissure+70g" alt="Fissure 70g" className="w-full md:w-1/2 h-auto object-cover rounded-lg shadow-md" />
-            <div className="md:w-1/2">
-              <h2 className="text-2xl font-semibold mb-2">Fissure max 70 g</h2>
-              <p className="text-gray-700 mb-4">Description pour Fissure max 70 g. Ce produit est parfait pour des réparations légères. Il offre une bonne adhérence et durabilité.</p>
-              <button className="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-600">Voir Détail</button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            className="relative cursor-pointer"
+            onClick={() => handleImageClick('Fissure70g')}
+          >
+            <img
+              src="https://via.placeholder.com/180x180?text=Fissure+70g"
+              alt="Fissure 70g"
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+            />
+            <div className="absolute top-0 left-0 bg-blue-600 text-white text-lg px-6 py-2 rounded-tl-lg rounded-br-lg shadow-lg">
+              Fissure max 70 g
+            </div>
+            <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-3 rounded-b-lg">
+              <p>Description pour Fissure max 70 g. Parfait pour des réparations légères.</p>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <img src="https://via.placeholder.com/250x250?text=Fissure+90g" alt="Fissure 90g" className="w-full md:w-1/2 h-auto object-cover rounded-lg shadow-md" />
-            <div className="md:w-1/2">
-              <h2 className="text-2xl font-semibold mb-2">Fissure max 90 g</h2>
-              <p className="text-gray-700 mb-4">Description pour Fissure max 90 g. Idéal pour des réparations plus importantes, avec une meilleure couverture pour les fissures plus larges.</p>
-              <button className="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-600">Voir Détail</button>
+
+          <div
+            className="relative cursor-pointer"
+            onClick={() => handleImageClick('Fissure90g')}
+          >
+            <img
+              src="https://via.placeholder.com/180x180?text=Fissure+90g"
+              alt="Fissure 90g"
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+            />
+            <div className="absolute top-0 left-0 bg-blue-600 text-white text-lg px-6 py-2 rounded-tl-lg rounded-br-lg shadow-lg">
+              Fissure max 90 g
+            </div>
+            <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-3 rounded-b-lg">
+              <p>Description pour Fissure max 90 g. Idéal pour des réparations plus importantes.</p>
             </div>
           </div>
         </div>
@@ -32,13 +53,21 @@ const Products = () => {
       id: 'protection',
       title: 'Protection de surface',
       content: (
-        <div className="flex flex-col items-center space-y-6">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <img src="https://via.placeholder.com/250x250?text=Polyane" alt="Polyane en bobineau" className="w-full md:w-1/2 h-auto object-cover rounded-lg shadow-md" />
-            <div className="md:w-1/2">
-              <h2 className="text-2xl font-semibold mb-2">Polyane en bobineau</h2>
-              <p className="text-gray-700 mb-4">Description pour polyane en bobineau. Parfait pour protéger les surfaces des salissures et dommages pendant les travaux de rénovation.</p>
-              <button className="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-600">Voir Détail</button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            className="relative cursor-pointer"
+            onClick={() => handleImageClick('Polyane')}
+          >
+            <img
+              src="https://via.placeholder.com/180x180?text=Polyane"
+              alt="Polyane en bobineau"
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+            />
+            <div className="absolute top-0 left-0 bg-blue-600 text-white text-lg px-6 py-2 rounded-tl-lg rounded-br-lg shadow-lg">
+              Polyane en bobineau
+            </div>
+            <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-3 rounded-b-lg">
+              <p>Parfait pour protéger les surfaces pendant les travaux de rénovation.</p>
             </div>
           </div>
         </div>
@@ -48,45 +77,21 @@ const Products = () => {
       id: 'evacuation',
       title: 'Évacuation de déchets',
       content: (
-        <div className="space-y-6">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <img src="https://via.placeholder.com/250x250?text=Sac+à+Gravats" alt="Sac à gravats" className="w-full md:w-1/2 h-auto object-cover rounded-lg shadow-md" />
-            <div className="md:w-1/2">
-              <h2 className="text-2xl font-semibold mb-2">Sac à gravats</h2>
-              <p className="text-gray-700 mb-4">Description pour sac à gravats. Résistant et idéal pour l’évacuation des déchets de construction, pratique et fiable.</p>
-              <button className="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-600">Voir Plus</button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            className="relative cursor-pointer"
+            onClick={() => handleImageClick('SacGravats')}
+          >
+            <img
+              src="https://via.placeholder.com/180x180?text=Sac+à+Gravats"
+              alt="Sac à gravats"
+              className="w-full h-auto object-cover rounded-lg shadow-md"
+            />
+            <div className="absolute top-0 left-0 bg-blue-600 text-white text-lg px-6 py-2 rounded-tl-lg rounded-br-lg shadow-lg">
+              Sac à gravats
             </div>
-          </div>
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <img src="https://via.placeholder.com/250x250?text=Sac+Poubelle" alt="Sac poubelle polyéthylène" className="w-full md:w-1/2 h-auto object-cover rounded-lg shadow-md" />
-            <div className="md:w-1/2">
-              <h2 className="text-2xl font-semibold mb-2">Sac poubelle polyéthylène noir</h2>
-              <p className="text-gray-700 mb-4">Description pour sac poubelle polyéthylène noir. Robuste et parfait pour gérer les déchets de manière efficace.</p>
-              <button className="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-600">Voir Plus</button>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: 'nettoyage',
-      title: 'Nettoyage de la surface',
-      content: (
-        <div className="space-y-6">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <img src="https://via.placeholder.com/250x250?text=Chiffon+Blanc" alt="Chiffon blanc" className="w-full md:w-1/2 h-auto object-cover rounded-lg shadow-md" />
-            <div className="md:w-1/2">
-              <h2 className="text-2xl font-semibold mb-2">Chiffon blanc</h2>
-              <p className="text-gray-700 mb-4">Description pour chiffon blanc. Idéal pour un nettoyage délicat des surfaces avec une finition propre.</p>
-              <button className="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-600">Voir Plus</button>
-            </div>
-          </div>
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <img src="https://via.placeholder.com/250x250?text=Chiffon+Couleur" alt="Chiffon couleur" className="w-full md:w-1/2 h-auto object-cover rounded-lg shadow-md" />
-            <div className="md:w-1/2">
-              <h2 className="text-2xl font-semibold mb-2">Chiffon couleur</h2>
-              <p className="text-gray-700 mb-4">Description pour chiffon couleur. Parfait pour différents types de nettoyage tout en apportant une touche de couleur.</p>
-              <button className="px-4 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-800">Voir Plus</button>
+            <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white p-3 rounded-b-lg">
+              <p>Résistant, idéal pour l’évacuation des déchets de construction.</p>
             </div>
           </div>
         </div>
@@ -98,7 +103,7 @@ const Products = () => {
     <section id='products' className="w-full p-6 bg-gray-100">
       <div className="text-center mb-6">
         <h1 className="text-3xl text-blue-900 font-bold mb-2">Nos Produits</h1>
-        <p className="text-lg text-gray-700">Découvrez notre gamme complète de produits pour la rénovation, la protection des surfaces, l’évacuation des déchets, et le nettoyage. Cliquez sur les onglets ci-dessous pour en savoir plus.</p>
+        <p className="text-lg text-gray-700">Découvrez notre gamme complète de produits pour la rénovation, la protection des surfaces, et l’évacuation des déchets.</p>
       </div>
 
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">

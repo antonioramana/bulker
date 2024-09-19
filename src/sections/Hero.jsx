@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import hero1 from '../assets/hero1.jpg';
+import hero2 from '../assets/hero2.jpg';
+import hero3 from '../assets/hero3.jpg';
+
 
 const Hero = () => {
   const slides = [
     {
-      image: 'https://via.placeholder.com/1200x500?text=Image+1',
+      image: hero1,
       title: 'Découvrez notre premier produit durable.',
       paragraph: 'Nous nous engageons à offrir des produits qui respectent l’environnement tout en garantissant une qualité supérieure.',
     },
     {
-      image: 'https://via.placeholder.com/1200x500?text=Image+2',
+      image:  hero2,
       title: 'Apprenez-en plus sur notre engagement écologique.',
       paragraph: 'Notre mission est de réduire l’empreinte carbone tout en innovant dans le secteur des produits durables.',
     },
     {
-      image: 'https://via.placeholder.com/1200x500?text=Image+3',
+      image: hero3,
       title: 'Explorez notre gamme de produits innovants.',
       paragraph: 'Découvrez notre sélection de produits qui allient technologie avancée et respect de l’environnement.',
     },

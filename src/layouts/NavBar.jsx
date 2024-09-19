@@ -47,7 +47,7 @@ const Navbar = () => {
           {/* Left: Logo */}
           <div className="flex items-center space-x-4">
             <a href="#home">
-              <img src={img} alt="Logo" className="h-10 w-auto" />
+              <img src={img} alt="Logo" className="h-12 w-auto" />
             </a>
           </div>
 
