@@ -88,8 +88,8 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center">
-            <button onClick={toggleMenu} className="text-gray-600 hover:text-blue-900">
-              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            <button onClick={toggleMenu} className="text-blue-900 hover:text-blue-700">
+              {isOpen ? <FaTimes size={24} /> : <FaBars className='text-blue-900' size={24} />}
             </button>
           </div>
         </div>
