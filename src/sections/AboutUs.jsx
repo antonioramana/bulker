@@ -3,7 +3,7 @@ import aboutImage from '../assets/about.jpg';
 
 const AboutUs = () => {
   return (
-    <section id="about" className="bg-gray-50 py-12 px-4 md:px-8 lg:px-16">
+    <section id="about" className="fall-in bg-gray-50 py-12 px-4 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch">
         {/* Image */}
         <div className="w-full md:w-1/2 h-[400px] flex-shrink-0">

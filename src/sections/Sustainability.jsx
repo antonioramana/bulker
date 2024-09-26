@@ -1,20 +1,31 @@
 import React from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { useInView } from 'react-intersection-observer';
 import { FaLeaf, FaRecycle, FaWater } from 'react-icons/fa'; // Exemple d'icônes pour la durabilité
 
 const Sustainability = () => {
   // Animation pour les cartes
+  const { ref: cardRef, inView: cardInView } = useInView({
+    triggerOnce: true, // Déclenche l'animation une seule fois
+    threshold: 0.1, // Se déclenche lorsque 10% de l'élément est visible
+  });
+
   const cardAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(20px)' },
-    to: { opacity: 1, transform: 'translateY(0)' },
+    opacity: cardInView ? 1 : 0,
+    transform: cardInView ? 'translateY(0)' : 'translateY(20px)',
     config: { tension: 220, friction: 120 },
     delay: 200,
   });
 
   // Animation pour le bouton
+  const { ref: buttonRef, inView: buttonInView } = useInView({
+    triggerOnce: true, // Déclenche l'animation une seule fois
+    threshold: 0.1, // Se déclenche lorsque 10% de l'élément est visible
+  });
+
   const buttonAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(20px)' },
-    to: { opacity: 1, transform: 'translateY(0)' },
+    opacity: buttonInView ? 1 : 0,
+    transform: buttonInView ? 'translateY(0)' : 'translateY(20px)',
     config: { tension: 220, friction: 120 },
     delay: 400,
   });
@@ -30,7 +41,7 @@ const Sustainability = () => {
         </animated.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <animated.div style={cardAnimation} className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+          <animated.div ref={cardRef} style={cardAnimation} className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
             <FaLeaf className="text-green-500 text-4xl mb-4" />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Énergie Renouvelable</h3>
             <p className="text-gray-600">
@@ -38,7 +49,7 @@ const Sustainability = () => {
             </p>
           </animated.div>
 
-          <animated.div style={cardAnimation} className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+          <animated.div ref={cardRef} style={cardAnimation} className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
             <FaRecycle className="text-blue-500 text-4xl mb-4" />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Recyclage</h3>
             <p className="text-gray-600">
@@ -46,7 +57,7 @@ const Sustainability = () => {
             </p>
           </animated.div>
 
-          <animated.div style={cardAnimation} className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
+          <animated.div ref={cardRef} style={cardAnimation} className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
             <FaWater className="text-teal-500 text-4xl mb-4" />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Conservation de l'Eau</h3>
             <p className="text-gray-600">
@@ -55,7 +66,7 @@ const Sustainability = () => {
           </animated.div>
         </div>
 
-        <animated.div style={buttonAnimation} className="mt-12">
+        <animated.div ref={buttonRef} style={buttonAnimation} className="mt-12">
           <a
             href="#contact"
             className="inline-block bg-blue-900 text-white py-3 px-6 rounded-md text-lg hover:bg-blue-800 transition-all duration-300"
