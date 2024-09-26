@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IoLanguageOutline } from 'react-icons/io5'; // Icône de langue
 import img from '../assets/logo.png';
+import { useNavigate, useLocation } from 'react-router-dom'; // Importation de useNavigate et useLocation
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('');
   const [language, setLanguage] = useState('fr'); // Langue par défaut
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // État pour ouvrir/fermer le dropdown
+  const navigate = useNavigate(); // Hook pour la navigation
+  const location = useLocation(); // Hook pour obtenir l'URL actuelle
 
   const handleScroll = () => {
     const sections = document.querySelectorAll('section[id]');
@@ -46,10 +49,29 @@ const Navbar = () => {
 
   const links = [
     { label: 'Accueil', id: 'home' },
-    { label: 'Produits', id: 'products' },
+    { label: 'Produits', id: 'products', paths: ['/bulker/produtCategories', '/bulker/categoryProducts', '/bulker/ProductDetails'] },
     { label: 'Durabilité', id: 'sustainability' },
     { label: 'À propos de nous', id: 'about' }
   ];
+
+  const handleLinkClick = (id) => {
+    // Redirige vers /bulker
+    navigate(`/bulker`);
+    
+    // Défile vers la section appropriée après un délai pour s'assurer que la page est chargée
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
+  // Détermine si un lien est actif en fonction de l'URL actuelle
+  const isActiveLink = (paths = []) => {
+    // Assurez-vous que paths est un tableau et qu'il contient des éléments
+    return Array.isArray(paths) && paths.some(path => location.pathname.startsWith(path));
+  };
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-10 py-4">
@@ -57,7 +79,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <a href="#home">
+            <a href="/bulker">
               <img 
                 src={img} 
                 alt="Logo" 
@@ -68,12 +90,16 @@ const Navbar = () => {
 
           {/* Liens du centre */}
           <div className="hidden md:flex items-center ml-10 space-x-6">
-            {links.map(({ label, id }) => (
+            {links.map(({ label, id, paths }) => (
               <a
                 key={id}
-                href={`#${id}`}
+                href={`/bulker#${id}`}
+                onClick={(e) => {
+                  e.preventDefault(); // Empêche le comportement par défaut du lien
+                  handleLinkClick(id); // Redirige et fait défiler vers la section souhaitée
+                }}
                 className={`text-lg font-semibold relative group ${
-                  activeLink === id
+                  isActiveLink(paths) || activeLink === id
                     ? 'text-blue-900'
                     : 'text-gray-700 hover:text-blue-900'
                 }`}
@@ -81,7 +107,7 @@ const Navbar = () => {
                 <span className="mb-2">{label}</span>
                 <span
                   className={`absolute left-1/2 transform -translate-x-1/2 bottom-[-8px] mt-2 h-2 w-2 rounded-full bg-blue-900 transition-all duration-300 ${
-                    activeLink === id ? 'block' : 'hidden'
+                    isActiveLink(paths) || activeLink === id ? 'block' : 'hidden'
                   }`}
                 ></span>
               </a>
@@ -140,18 +166,24 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="flex flex-col space-y-2 px-4 py-4">
-            {links.map(({ label, id }) => (
+            {links.map(({ label, id, paths }) => (
               <a
                 key={id}
-                href={`#${id}`}
+                href={`/bulker#${id}`}
+                onClick={(e) => {
+                  e.preventDefault(); // Empêche le comportement par défaut du lien
+                  handleLinkClick(id); // Redirige et fait défiler vers la section souhaitée
+                }}
                 className={`text-lg font-semibold relative ${
-                  activeLink === id ? 'text-blue-900' : 'text-gray-600 hover:text-blue-900'
+                  isActiveLink(paths) || activeLink === id
+                    ? 'text-blue-900'
+                    : 'text-gray-600 hover:text-blue-900'
                 }`}
               >
                 <span className="mb-2">{label}</span>
                 <span
                   className={`absolute left-1/2 transform -translate-x-1/2 bottom-[-8px] mt-2 h-2 w-2 rounded-full bg-blue-900 transition-all duration-300 ${
-                    activeLink === id ? 'block' : 'hidden'
+                    isActiveLink(paths) || activeLink === id ? 'block' : 'hidden'
                   }`}
                 ></span>
               </a>
@@ -188,8 +220,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-
-            <button className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-800">
+            <button className="bg-blue-900 opacity-80 text-white px-4 py-2 rounded-md hover:bg-blue-800">
               Contact
             </button>
           </div>
