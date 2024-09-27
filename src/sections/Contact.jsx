@@ -20,7 +20,7 @@ const Contact = () => {
   <FaPhone className="text-blue-900 text-lg lg:text-xl" />
   <div>
     <p className="font-semibold text-gray-800">Téléphone</p>
-    <p className="text-gray-600">01 84 80 57 51</p>
+    <p className="text-gray-600">09 70 70 41 01</p>
   </div>
 </div>
 
@@ -38,7 +38,7 @@ const Contact = () => {
   <FaMapMarkerAlt className="text-blue-900 text-lg lg:text-xl" />
   <div>
     <p className="font-semibold text-gray-800">Adresse</p>
-    <p className="text-gray-600">29 Boulevard de la Muette, 95140 Garges-lès-Gonesse, France</p>
+    <p className="text-gray-600">9 route de Turin, 06300 Nice, France</p>
   </div>
 </div>
 
