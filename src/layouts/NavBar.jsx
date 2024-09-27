@@ -49,7 +49,7 @@ const Navbar = () => {
 
   const links = [
     { label: 'Accueil', id: 'home' },
-    { label: 'Produits', id: 'products', paths: ['/bulker/produtCategories', '/bulker/categoryProducts', '/bulker/ProductDetails'] },
+    { label: 'Produits', id: 'products', paths: ['/bulker/produtCategories', '/bulker/categoryProducts', '/bulker/productDetails'] },
     { label: 'Durabilité', id: 'sustainability' },
     { label: 'À propos de nous', id: 'about' }
   ];
@@ -70,7 +70,9 @@ const Navbar = () => {
   // Détermine si un lien est actif en fonction de l'URL actuelle
   const isActiveLink = (paths = []) => {
     // Assurez-vous que paths est un tableau et qu'il contient des éléments
-    return Array.isArray(paths) && paths.some(path => location.pathname.startsWith(path));
+    //return Array.isArray(paths) && paths.some(path => location.pathname.startsWith(path));
+    return paths.some(path => location.pathname.startsWith(path));
+
   };
 
   return (

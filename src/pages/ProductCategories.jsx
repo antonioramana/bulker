@@ -10,12 +10,13 @@ import evacuationImage from '../assets/chiffons/chiff1.jpg';
 import Footer from '../layouts/Footer';
 import Contact from '../sections/Contact';
 import Navbar from '../layouts/NavBar';
+import ButtonWithHoverIconBack from '../components/ButtonWithIconBack';
 
 const categories = [
   { id: 'renovation', name: 'Rénovation', image: renovationImage },
   { id: 'protection', name: 'Protection de surface', image: protectionImage },
-  { id: 'nettoyage', name: 'Nettoyage de la surface', image: nettoyageImage },
-  { id: 'evacuation', name: 'Évacuation de déchets', image: evacuationImage },
+  { id: 'nettoyage', name: 'Nettoyage de la surface', image: evacuationImage },
+  { id: 'evacuation', name: 'Évacuation de déchets', image:  nettoyageImage},
 ];
 
 const ProductCategories = () => {
@@ -25,7 +26,7 @@ const ProductCategories = () => {
       <div className="bg-gray-200">
         <div className='p-10'>
         <h1 className="text-3xl font-bold mb-6 text-blue-900">Produits</h1>
-        <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'> Accueil |</span>Produits</h6>
+        <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'> Accueil |</span>Catégories</h6>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 p-6 bg-white">
@@ -43,9 +44,8 @@ const ProductCategories = () => {
                 <h2 className="text-xl font-bold mb-4">{category.name}</h2>
                 <div className="mt-auto"  style={{ alignSelf: 'flex-end' }} >
                 <Link
-                  // to={`/products#${category.id}`}
-                  to="/bulker/categoryProducts"
-                  className="bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-900"
+                   to={`/bulker/categoryProducts/${category.id}`}
+                  className=" opacity-80 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-900"
                  
                 >
                   Voir les produits
@@ -58,6 +58,9 @@ const ProductCategories = () => {
         </div>
       </div>
       {/* <Contact /> */}
+      <div className="flex justify-center m-8">
+          <ButtonWithHoverIconBack path={"/bulker/"} />
+      </div>
       <Footer />
     </>
   );

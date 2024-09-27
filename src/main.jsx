@@ -20,11 +20,15 @@ const router=createBrowserRouter([
     element: <ProductCategories />,
   },
   {
-    path:  "/bulker/categoryProducts",
+    path: "/bulker/categoryProducts/:cat", 
     element: <CategoryProducts />,
   },
+  // {
+  //   path:  "/bulker/productDetails",
+  //   element: <ProductDetails />,
+  // },
   {
-    path:  "/bulker/productDetails",
+    path: "/bulker/productDetails/:productId",
     element: <ProductDetails />,
   },
   {

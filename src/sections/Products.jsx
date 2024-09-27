@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import fissure70 from '../assets/fissures/fiss70.jpg';
 import fissure90 from '../assets/fissures/fiss90.jpg';
-import fissure3 from '../assets/fissures/fiss3.jpg';
 import polyane1 from '../assets/polyanes/pol1.jpg';
-import polyane2 from '../assets/polyanes/pol2.jpg';
-import polyane3 from '../assets/polyanes/pol3.jpg';
 import sac1 from '../assets/sacs/sac1.jpg';
-import sac2 from '../assets/sacs/sac2.jpg';
 import sac3 from '../assets/sacs/sac3.jpg';
 import chiff1 from '../assets/chiffons/chiff1.jpg';
-import chiff2 from '../assets/chiffons/chiff2.jpg';
 import chiff3 from '../assets/chiffons/chiff3.jpg';
-import { Link } from 'react-router-dom';
-import { FaChevronRight } from 'react-icons/fa';
 import ButtonWithHoverIcon from '../components/ButtonWithIcon';
 
 const Products = () => {
