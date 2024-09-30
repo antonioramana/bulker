@@ -11,18 +11,33 @@ import Sustainability from './sections/Sustainability'
 import Contact from './sections/Contact'
 import Footer from './layouts/Footer'
 import AboutUs from './sections/AboutUs'
+import { useEffect } from 'react';
+import Loader from './components/Loader';
 
 function App() {
   const [count, setCount] = useState(0)
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    // Simulez un temps de chargement avant de terminer le chargement
+    const timer = setTimeout(() => setLoading(false), 3000); // 3 secondes
+    return () => clearTimeout(timer);
+  }, []);
   return (
+    
     <>
        <Navbar />
-    <Hero />
+       {loading ? (
+        <Loader />
+      ) : (
+        <>
+      <Hero />
     <Products />
     <Sustainability />
     <AboutUs />
     <Contact />
+    </>
+    )}
     <Footer />
  
     {/* <Routes>

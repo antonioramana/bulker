@@ -11,6 +11,8 @@ import sac3 from '../assets/sacs/sac3.jpg';
 import chiff1 from '../assets/chiffons/chiff1.jpg';
 import chiff3 from '../assets/chiffons/chiff3.jpg';
 import ButtonWithHoverIconBack from '../components/ButtonWithIconBack';
+import Loader from '../components/Loader';
+import { useEffect } from 'react';
 
 
 const categories = [
@@ -24,6 +26,7 @@ const categories = [
 ];
 
 const CategoryProducts = () => {
+  const [loading, setLoading] = useState(true);
   const { cat } = useParams(); // Récupérer la catégorie depuis les paramètres d'URL
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -35,7 +38,12 @@ const CategoryProducts = () => {
   const filteredProducts = categories
     .filter((category) => category.cat === cat) // Filtrer selon la catégorie passée en paramètre
     .filter((category) => category.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    useEffect(() => {
+      // Simulez un temps de chargement avant de terminer le chargement
 
+      const timer = setTimeout(() => setLoading(false), 3000); // 3 secondes
+      return () => clearTimeout(timer);
+    }, []);
   return (
     <>
       <Navbar />
@@ -45,8 +53,9 @@ const CategoryProducts = () => {
           <h6 className="text-xl font-bold mb-6">
             <span className="text-blue-900">Accueil |</span> Produits {cat}</h6>
         </div>
-
-        {/* Section produits avec recherche */}
+        {loading ? (
+        <Loader />
+      ) : (
         <div className="bg-white p-6">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
             {/* Champ de recherche décalé à droite */}
@@ -93,7 +102,7 @@ const CategoryProducts = () => {
               <p className="text-center col-span-4">Aucun produit trouvé dans cette catégorie.</p>
             )}
           </div>
-        </div>
+        </div>)}
       </div>
       <div className="flex justify-center m-8">
           <ButtonWithHoverIconBack path={"/bulker/produtCategories/"} />

@@ -10,6 +10,8 @@ import sac3 from '../assets/sacs/sac3.jpg';
 import chiff1 from '../assets/chiffons/chiff1.jpg';
 import chiff3 from '../assets/chiffons/chiff3.jpg';
 import ButtonWithHoverIconBack from '../components/ButtonWithIconBack';
+import { useEffect } from 'react';
+import Loader from '../components/Loader';
 
 const products = [
   { id: 'renovation1', name: 'Fissure Max 70g', description: '...', image: fissure70 , cat:'renovation'},
@@ -24,7 +26,13 @@ const products = [
 const ProductDetails = () => {
   const { productId } = useParams();  // Récupérer l'ID du produit
   const product = products.find((item) => item.id === productId);  // Trouver le produit correspondant
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    // Simulez un temps de chargement avant de terminer le chargement
+    const timer = setTimeout(() => setLoading(false), 3000); // 3 secondes
+    return () => clearTimeout(timer);
+  }, []);
   const [activeTab, setActiveTab] = useState('description');
 
   const renderTabContent = () => {
@@ -50,7 +58,9 @@ const ProductDetails = () => {
           <h1 className="text-3xl font-bold mb-6 text-blue-900">{product.name}</h1>
           <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'> Accueil | Produits | </span>{product.name}</h6>
         </div>
-
+        {loading ? (
+        <Loader />
+      ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-10 bg-white">
           <div>
             <img
@@ -99,7 +109,7 @@ const ProductDetails = () => {
               Intérressé
             </button>
           </div>
-        </div>
+        </div>)}
       </div>
       <div className="flex justify-center m-8">
           <ButtonWithHoverIconBack path={"/bulker/categoryProducts/"+product.cat} />

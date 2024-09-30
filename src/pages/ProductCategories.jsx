@@ -11,6 +11,9 @@ import Footer from '../layouts/Footer';
 import Contact from '../sections/Contact';
 import Navbar from '../layouts/NavBar';
 import ButtonWithHoverIconBack from '../components/ButtonWithIconBack';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import Loader from '../components/Loader';
 
 const categories = [
   { id: 'renovation', name: 'Rénovation', image: renovationImage },
@@ -20,6 +23,13 @@ const categories = [
 ];
 
 const ProductCategories = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulez un temps de chargement avant de terminer le chargement
+    const timer = setTimeout(() => setLoading(false), 3000); // 3 secondes
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
       <Navbar />
@@ -28,7 +38,9 @@ const ProductCategories = () => {
         <h1 className="text-3xl font-bold mb-6 text-blue-900">Produits</h1>
         <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'> Accueil |</span>Catégories</h6>
         </div>
-        
+        {loading ? (
+        <Loader />
+      ) : ( 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 p-6 bg-white">
           {categories.map((category) => (
             <div
@@ -55,12 +67,13 @@ const ProductCategories = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div>)}
       </div>
       {/* <Contact /> */}
       <div className="flex justify-center m-8">
           <ButtonWithHoverIconBack path={"/bulker/"} />
       </div>
+      
       <Footer />
     </>
   );
