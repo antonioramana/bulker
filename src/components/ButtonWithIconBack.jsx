@@ -20,7 +20,7 @@ const ButtonWithHoverIconBack = ({path}) => {
             <FaChevronLeft className="w-5 h-5" /> // Icône par défaut
           )}
         </span>
-        <span className="ml-3 font-bold px-5">Retours</span>
+        <span className="ml-3 font-bold px-5">Retour</span>
       </Link>
     </div>
   );

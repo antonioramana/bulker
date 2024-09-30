@@ -19,8 +19,8 @@ const categories = [
   { id: 'renovation1', name: 'Fissure Max 70g', image: fissure70, cat: 'renovation' },
   { id: 'renovation2', name: 'Fissure Max 90g', image: fissure90, cat: 'renovation' },
   { id: 'protection1', name: 'Polyane en bobineau', image: polyane1, cat: 'protection' },
-  { id: 'evacuation1', name: 'Sacs à gravats', image: sac1, cat: 'evacuation' },
-  { id: 'evacuation2', name: 'Sac poubelle en polyéthylène noir', image: sac3, cat: 'evacuation' },
+  { id: 'evacuation1', name: 'Sacs à gravats', image: sac3, cat: 'evacuation' },
+  { id: 'evacuation2', name: 'Sac poubelle en polyéthylène noir', image: sac1, cat: 'evacuation' },
   { id: 'nettoyage1', name: 'Chiffons blancs', image: chiff1, cat: 'nettoyage' },
   { id: 'nettoyage2', name: 'Chiffons couleurs', image: chiff3, cat: 'nettoyage' },
 ];
@@ -51,7 +51,7 @@ const CategoryProducts = () => {
         <div className="p-10">
           <h1 className="text-3xl font-bold mb-2 text-blue-900">Produits </h1>
           <h6 className="text-xl font-bold mb-6">
-            <span className="text-blue-900">Accueil |</span> Produits {cat}</h6>
+            <span className="text-blue-900"><Link to="/bulker">Accueil |</Link><Link to="/bulker/produtCategories/"> Catégorie | </Link></span>{cat.charAt(0).toUpperCase() + cat.slice(1)}</h6>
         </div>
         {loading ? (
         <Loader />

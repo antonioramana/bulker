@@ -12,6 +12,7 @@ import chiff3 from '../assets/chiffons/chiff3.jpg';
 import ButtonWithHoverIconBack from '../components/ButtonWithIconBack';
 import { useEffect } from 'react';
 import Loader from '../components/Loader';
+import { Link } from 'react-router-dom';
 
 const products = [
   { id: 'renovation1', name: 'Fissure Max 70g', description: '...', image: fissure70 , cat:'renovation'},
@@ -56,7 +57,7 @@ const ProductDetails = () => {
       <div className="bg-gray-200">
         <div className='p-10'>
           <h1 className="text-3xl font-bold mb-6 text-blue-900">{product.name}</h1>
-          <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'> Accueil | Produits | </span>{product.name}</h6>
+          <h6 className="text-xl font-bold mb-6"><span className="text-blue-900"><Link to="/bulker">Accueil |</Link><Link to="/bulker/produtCategories/"> Catégorie | </Link><Link to="/bulker/produtCategories/"> {product.cat.charAt(0).toUpperCase() + product.cat.slice(1)} | </Link></span>{product.name}</h6>
         </div>
         {loading ? (
         <Loader />

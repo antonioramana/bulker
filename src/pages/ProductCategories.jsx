@@ -36,7 +36,7 @@ const ProductCategories = () => {
       <div className="bg-gray-200">
         <div className='p-10'>
         <h1 className="text-3xl font-bold mb-6 text-blue-900">Produits</h1>
-        <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'> Accueil |</span>Catégories</h6>
+        <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'><Link to="/bulker/">Accueil |</Link></span>Catégories</h6>
         </div>
         {loading ? (
         <Loader />

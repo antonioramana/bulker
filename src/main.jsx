@@ -38,7 +38,9 @@ const router=createBrowserRouter([
 ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <RouterProvider router={router} />
-      <ScrollToTopButton />
+    
+          <RouterProvider router={router} />
+          <ScrollToTopButton />
+     
   </StrictMode>
 )

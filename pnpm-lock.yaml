@@ -11,6 +11,9 @@ importers:
       '@react-spring/web':
         specifier: ^9.7.4
         version: 9.7.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      google-translate-api-browser:
+        specifier: ^5.0.0
+        version: 5.0.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1008,6 +1011,9 @@ packages:
   globby@6.1.0:
     resolution: {integrity: sha512-KVbFv2TQtbzCoxAnfD6JcHZTYCzyliEaaeM/gH8qQdkKr5s0OP9scEgvdcngyk7AVdY6YVW/TJHd+lQ/Df3Daw==}
     engines: {node: '>=0.10.0'}
+
+  google-translate-api-browser@5.0.0:
+    resolution: {integrity: sha512-fU+OMp1Ne/RyN3ETnOKOOnPCQk/ZXF351Ih+Mf3hycuNQl94ZB3Q/oZM3LyRzRsQLMVlxq99HNZ2q1sYoh/6kA==}
 
   gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
@@ -2871,6 +2877,8 @@ snapshots:
       object-assign: 4.1.1
       pify: 2.3.0
       pinkie-promise: 2.0.1
+
+  google-translate-api-browser@5.0.0: {}
 
   gopd@1.0.1:
     dependencies:
