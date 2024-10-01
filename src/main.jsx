@@ -9,6 +9,7 @@ import CategoryProducts from './pages/CategoryProducts.jsx'
 import ProductDetails from './pages/ProductDetails.jsx'
 import ScrollToTopButton from './components/ScrollToTopButton.jsx'
 import Terms from './pages/Terms.jsx'
+import Landing from './pages/Landing.jsx'
 
 const router=createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router=createBrowserRouter([
   {
     path:  "/bulker/terms",
     element: <Terms />,
+  },
+  {
+    path:  "/",
+    element: <Landing />,
   },
 ]);
 createRoot(document.getElementById('root')).render(

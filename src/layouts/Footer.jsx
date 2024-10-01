@@ -43,8 +43,8 @@ const Footer = () => {
             <p className="text-gray-400 mb-2">IDEO<br />9 route de Turin<br />06300 Nice, France</p>
             <p className="text-gray-400 mb-4">
               Téléphone : <a href="tel:0970704101" className="text-gray-400 hover:underline">09 70 70 41 01</a><br />
-              E-mail : <a href="mailto:contact@exnihilo-france.com" className="text-gray-400 hover:underline">contact@exnihilo-france.com</a><br />
-              Site web : <a href="http://exnihilo-france.com" className="text-gray-400 hover:underline" target="_blank" rel="noopener noreferrer">exnihilo-france.com</a>
+              E-mail : <a href="mailto:contact@exnihilo-france.com" className="text-gray-400 hover:underline">hello@bulker.com</a><br />
+              Site web : <a href="http://exnihilo-france.com" className="text-gray-400 hover:underline" target="_blank" rel="noopener noreferrer">www.bulker.fr</a>
             </p>
             <p className="text-gray-500 text-sm">IDEO France © 2024. Tous droits réservés. Ne pas jeter sur la voie publique.</p>
           </div>
