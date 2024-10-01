@@ -3,9 +3,9 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaUser, FaTag, FaCommentDots } fro
 import bg from '../assets/contact-bg.png';
 import  emailjs  from '@emailjs/browser';
 
-const REACT_APP_EMAILJS_SERVICE_ID="service_ygz2n01";
-const REACT_APP_EMAILJS_TEMPLATE_ID="template_jjfo2sj";
-const REACT_APP_EMAILJS_PUBLIC_KEY="YsiltPqmlRhQcS31t";
+const REACT_APP_EMAILJS_SERVICE_ID="service_9ribuc8";
+const REACT_APP_EMAILJS_TEMPLATE_ID="template_kbnyr3u";
+const REACT_APP_EMAILJS_PUBLIC_KEY="lX092oTnarBqA58p1";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
