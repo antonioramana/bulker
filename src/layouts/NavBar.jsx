@@ -3,6 +3,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { IoLanguageOutline } from 'react-icons/io5'; // Icône de langue
 import img from '../assets/logo.png';
 import { useNavigate, useLocation } from 'react-router-dom'; // Importation de useNavigate et useLocation
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -119,7 +120,7 @@ const Navbar = () => {
           {/* Sélecteur de langue et Contact */}
           <div className="ml-auto hidden md:flex items-center space-x-6">
             {/* Sélecteur de langue */}
-            <div className="relative">
+            {/* <div className="relative">
               <button
                 onClick={toggleDropdown}
                 className="flex items-center space-x-2 text-blue-900"
@@ -128,10 +129,10 @@ const Navbar = () => {
                   {language === 'fr' ? 'Français' : 'English'}
                 </span>
                 <IoLanguageOutline className="text-xl" />
-              </button>
+              </button> */}
 
               {/* Dropdown de sélection de langue */}
-              {isDropdownOpen && (
+              {/* {isDropdownOpen && (
                 <div className="absolute mt-2 bg-white border rounded-md shadow-lg focus:outline-none focus:ring focus:border-blue-300">
                   <ul className="py-1">
                     <li
@@ -149,10 +150,16 @@ const Navbar = () => {
                   </ul>
                 </div>
               )}
-            </div>
-            <button className="bg-blue-900 opacity-80 text-white px-4 py-2 rounded-md hover:bg-blue-800">
+            </div> */}
+            <a
+            onClick={(e) => {
+              e.preventDefault(); // Empêche le comportement par défaut du lien
+              handleLinkClick("contact"); // Redirige et fait défiler vers la section souhaitée
+            }}
+               href='/bulker#contact' 
+               className="bg-blue-900 opacity-80 text-white px-4 py-2 rounded-md hover:bg-blue-800">
               Contact
-            </button>
+            </a>
           </div>
 
           {/* Menu mobile */}
@@ -192,7 +199,7 @@ const Navbar = () => {
             ))}
 
             {/* Sélecteur de langue pour mobile */}
-            <div className="relative">
+            {/* <div className="relative">
               <button
                 onClick={toggleDropdown}
                 className="flex items-center space-x-2 text-blue-900"
@@ -221,10 +228,16 @@ const Navbar = () => {
                   </ul>
                 </div>
               )}
-            </div>
-            <button className="bg-blue-900 opacity-80 text-white px-4 py-2 rounded-md hover:bg-blue-800">
+            </div> */}
+            <Link 
+                onClick={(e) => {
+                  e.preventDefault(); // Empêche le comportement par défaut du lien
+                  handleLinkClick("contact"); // Redirige et fait défiler vers la section souhaitée
+                }}
+                  href='/bulker#contact'
+               className="bg-blue-900 opacity-80 text-white px-4 py-2 rounded-md hover:bg-blue-800">
               Contact
-            </button>
+            </Link>
           </div>
         </div>
       )}

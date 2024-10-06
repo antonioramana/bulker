@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaUser, FaTag, FaCommentDots } from 'react-icons/fa';
 import bg from '../assets/contact-bg.png';
-import  emailjs  from '@emailjs/browser';
+import emailjs from '@emailjs/browser';
 
-const REACT_APP_EMAILJS_SERVICE_ID="service_9ribuc8";
-const REACT_APP_EMAILJS_TEMPLATE_ID="template_kbnyr3u";
-const REACT_APP_EMAILJS_PUBLIC_KEY="lX092oTnarBqA58p1";
+const REACT_APP_EMAILJS_SERVICE_ID = "service_9ribuc8";
+const REACT_APP_EMAILJS_TEMPLATE_ID = "template_kbnyr3u";
+const REACT_APP_EMAILJS_PUBLIC_KEY = "lX092oTnarBqA58p1";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,15 +14,17 @@ const Contact = () => {
     subject: '',
     message: '',
   });
-  const templateParams={
+  const [submittedData, setSubmittedData] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [loading, setLoading] = useState(false); // État pour le chargement
+
+  const templateParams = {
     from_name: formData?.name,
     from_email: formData?.email,
     subject: formData?.subject,
     to_name: "bulker",
     message: formData?.message,
   }
-  const [submittedData, setSubmittedData] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(false);
 
   // Gestion de la modification des champs
   const handleInputChange = (e) => {
@@ -34,26 +36,31 @@ const Contact = () => {
   };
 
   // Gestion de la soumission du formulaire
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Empêche le comportement par défaut de la page (rechargement)
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      alert("Tous les champs sont obligatoires !");
+      return;
+    }
+
+    setLoading(true); // Commence le chargement
     setSubmittedData(formData); // Enregistre les données soumises
-    emailjs
-    .send(REACT_APP_EMAILJS_SERVICE_ID, REACT_APP_EMAILJS_TEMPLATE_ID, templateParams, REACT_APP_EMAILJS_PUBLIC_KEY)
-    .then(
-      () => {
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        });
-        setSuccessMessage(true); 
-        console.log('SUCCESS!');
-      },
-      (error) => {
-        console.log('FAILED...', error.text);
-      },
-    );
+
+    try {
+      await emailjs.send(REACT_APP_EMAILJS_SERVICE_ID, REACT_APP_EMAILJS_TEMPLATE_ID, templateParams, REACT_APP_EMAILJS_PUBLIC_KEY);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
+      setSuccessMessage(true);
+      console.log('SUCCESS!');
+    } catch (error) {
+      console.log('FAILED...', error.text);
+    } finally {
+      setLoading(false); // Termine le chargement
+    }
   };
 
   return (
@@ -172,9 +179,10 @@ const Contact = () => {
 
             <button
               type="submit"
-              className="w-full bg-blue-900 text-white py-3 rounded-md hover:bg-blue-800 transition-all duration-300 mt-4"
+              disabled={loading} // Désactive le bouton si en chargement
+              className={`w-full ${loading ? 'bg-gray-400' : 'bg-blue-900'} text-white py-3 rounded-md hover:bg-blue-800 transition-all duration-300 mt-4`}
             >
-              Envoyer
+              {loading ? 'Envoi...' : 'Envoyer'}
             </button>
           </form>
 
