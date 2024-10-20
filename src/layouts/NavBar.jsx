@@ -160,6 +160,11 @@ const Navbar = () => {
                className="bg-blue-900 opacity-80 text-white px-4 py-2 rounded-md hover:bg-blue-800">
               Contact
             </a>
+            {/* <Link 
+                to='/bulker/login'
+               className="text-blue-900 opacity-80 bg-white px-4 py-2 rounded-md hover:bg-blue-800 hover:text-white">
+              Connexion
+            </Link> */}
           </div>
 
           {/* Menu mobile */}
@@ -239,6 +244,11 @@ const Navbar = () => {
               Contact
             </Link>
           </div>
+          {/* <Link 
+                to='/bulker/login'
+               className="text-blue-900 opacity-80 bg-white px-4 py-2 rounded-md hover:bg-blue-800  hover:text-white">
+              Connexion
+            </Link> */}
         </div>
       )}
     </nav>

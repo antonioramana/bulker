@@ -1,0 +1,52 @@
+import React, { useEffect, useState } from 'react';
+import { useColumns } from './Hooks/useColumns';
+import Authenticated from '../../layouts/authenticatedLayout';
+import Datagrid from '../../components/Datagrid'; // Assure-toi que ce chemin est correct
+import axiosInstance from '../../config/axiosInstance'; // Importer ton instance Axios
+import Loader from '../../components/Loader';
+
+export default function UsersIndex() {
+    const columns = useColumns();
+    const [users, setUsers] = useState([]); // État pour stocker les utilisateurs
+    const [loading, setLoading] = useState(true); // État pour le chargement
+    const [error, setError] = useState(null); // État pour les erreurs
+
+    // Utiliser useEffect pour récupérer les utilisateurs lors du montage du composant
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axiosInstance.get('/api/users'); // Assure-toi que l'URL est correcte
+                setUsers(response.data); // Mettre à jour l'état avec les utilisateurs reçus
+            } catch (err) {
+                setError('Erreur lors de la récupération des utilisateurs'); // Gérer l'erreur
+            } finally {
+                setLoading(false); // Mettre à jour l'état de chargement
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    if (error) {
+        return <div>{error}</div>; // Afficher une erreur si nécessaire
+    }
+
+    return (
+        <Authenticated>
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                {loading ? (
+                    <Loader />
+                ):(
+                    <Datagrid
+                    columns={columns}
+                    rows={users} 
+                    canCreate={false}
+                    href={'/bulker/user/create'}
+                    filter={true} 
+                />
+                )
+                }
+            </div>
+        </Authenticated>
+    );
+}

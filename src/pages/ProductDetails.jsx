@@ -1,119 +1,86 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import Footer from '../layouts/Footer';
 import Navbar from '../layouts/NavBar';
-import fissure90 from '../assets/fissures/fiss90.jpg';
-import fissure70 from '../assets/fissures/fiss70.jpg';
-import polyane1 from '../assets/polyanes/pol1.jpg';
-import sac1 from '../assets/sacs/sac1.jpg';
-import sac3 from '../assets/sacs/sac3.jpg';
-import chiff1 from '../assets/chiffons/chiff1.jpg';
-import chiff3 from '../assets/chiffons/chiff3.jpg';
 import ButtonWithHoverIconBack from '../components/ButtonWithIconBack';
-import { useEffect } from 'react';
 import Loader from '../components/Loader';
-import { Link } from 'react-router-dom';
-
-const products = [
-  { id: 'renovation1', name: 'Fissure Max 70g', description: '...', image: fissure70 , cat:'renovation'},
-  { id: 'renovation2', name: 'Fissure Max 90g', description: '...', image: fissure90, cat:'renovation' },
-  { id: 'protection1', name: 'Polyane en bobineau', description: '...', image: polyane1, cat:'protection' },
-  { id: 'evacuation1', name: 'Sacs à gravats', description: '...', image: sac1 , cat:'evacuation'},
-  { id: 'evacuation2', name: 'Sac poubelle', description: '...', image: sac3 , cat:'evacuation'},
-  { id: 'nettoyage1', name: 'Chiffons blancs', description: '...', image: chiff1, cat:'nettoyage' },
-  { id: 'nettoyage2', name: 'Chiffons couleurs', description: '...', image: chiff3, cat:'nettoyage' },
-];
+import { API_URL } from '../config/api';
 
 const ProductDetails = () => {
   const { productId } = useParams();  // Récupérer l'ID du produit
-  const product = products.find((item) => item.id === productId);  // Trouver le produit correspondant
+  const [product, setProduct] = useState(null);  // Initialiser l'état du produit à null
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulez un temps de chargement avant de terminer le chargement
-    const timer = setTimeout(() => setLoading(false), 3000); // 3 secondes
-    return () => clearTimeout(timer);
-  }, []);
-  const [activeTab, setActiveTab] = useState('description');
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/products/${productId}`);
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération du produit');
+        }
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération du produit:', error);
+      } finally {
+        setLoading(false); // Assurez-vous que le loading soit toujours arrêté
+      }
+    };
 
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'description':
-        return <p>{product.description}</p>;
-      case 'features':
-        return <p>Caractéristiques du produit...</p>;
-      case 'technical':
-        return <p>Détails techniques...</p>;
-      case 'downloads':
-        return <p>Téléchargez les documents...</p>;
-      default:
-        return null;
-    }
-  };
+    fetchProduct();
+  }, [productId]);  // Ajout de productId comme dépendance pour éviter les avertissements
 
   return (
     <>
       <Navbar />
       <div className="bg-gray-200">
         <div className='p-10'>
-          <h1 className="text-3xl font-bold mb-6 text-blue-900">{product.name}</h1>
-          <h6 className="text-xl font-bold mb-6"><span className="text-blue-900"><Link to="/bulker">Accueil |</Link><Link to="/bulker/produtCategories/"> Catégorie | </Link><Link to={"/bulker/categoryProducts/"+product.cat}> {product.cat.charAt(0).toUpperCase() + product.cat.slice(1)} | </Link></span>{product.name}</h6>
+          {product && (
+            <>
+              <h1 className="text-3xl font-bold mb-6 text-blue-900">{product.name}</h1>
+              <h6 className="text-xl font-bold mb-6">
+                <span className='text-blue-900'>
+                  <Link to="/">Accueil | </Link>
+                  <Link to="/bulker/produtCategories">Catégorie</Link> |
+                  <Link to={`/bulker/CategoryProducts/${product.category.id}`}>{product.category.name}</Link> |
+                </span>
+                {product.name}
+              </h6>
+            </>
+          )}
         </div>
         {loading ? (
-        <Loader />
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-10 bg-white">
+          <Loader />
+        ) : product ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-10 bg-white rounded-lg shadow-lg">
           <div>
             <img
-              src={product.image}
+              src={product.image} // Utilisation de l'URL correcte
               alt={product.name}
               className="w-full h-auto object-cover rounded-lg shadow-md"
               style={{ maxHeight: '500px' }} 
             />
           </div>
-
-          <div>
-            <h2 className="text-2xl font-bold mb-4">{product.name}</h2>
-
-            {/* Tabs */}
-            <div className="border-b mb-4 mt-10">
-              <button
-                className={`mr-4 pb-2 ${activeTab === 'description' ? 'border-blue-900 border-b-2 text-blue-900 font-bold' : 'text-gray-600'}`}
-                onClick={() => setActiveTab('description')}
-              >
-                Description
-              </button>
-              <button
-                className={`mr-4 pb-2 ${activeTab === 'features' ? 'border-blue-900 border-b-2 text-blue-900 font-bold' : 'text-gray-600'}`}
-                onClick={() => setActiveTab('features')}
-              >
-                Caractéristiques
-              </button>
-              <button
-                className={`mr-4 pb-2 ${activeTab === 'technical' ? 'border-blue-900 border-b-2 text-blue-900 font-bold' : 'text-gray-600'}`}
-                onClick={() => setActiveTab('technical')}
-              >
-                Fiche technique
-              </button>
-              <button
-                className={`pb-2 ${activeTab === 'downloads' ? 'border-blue-900 border-b-2 text-blue-900 font-bold' : 'text-gray-600'}`}
-                onClick={() => setActiveTab('downloads')}
-              >
-                Téléchargements
-              </button>
-            </div>
-
-            {/* Contenu des tabs */}
-            <div>{renderTabContent()}</div>
-
-            <button className="bg-blue-900  opacity-80 text-white py-2 px-4 rounded mt-6 hover:bg-blue-700">
-              Intérressé
-            </button>
+          <div className="flex flex-col justify-center">
+            <h2 className="text-3xl font-bold mb-4 text-blue-950">Détails du produit</h2>
+            <p className="mb-2 text-lg"><strong>Description :</strong> {product.description}</p>
+            {/* <p className="mb-2 text-lg"><strong>Prix :</strong> {product.price} €</p> */}
+            <p className="mb-2 text-lg"><strong>Catégorie :</strong> {product.category.name}</p>
+            
+            <Link to="/bulker#contact" className=" text-center bg-blue-900 opacity-90 text-white py-2 px-6 rounded mt-6 hover:bg-blue-700 transition duration-300 ease-in-out shadow hover:shadow-lg">
+              Intéressé
+            </Link>
           </div>
-        </div>)}
+        </div>        
+        ) : (
+          <p className="text-center">Produit introuvable.</p>
+        )}
       </div>
+
       <div className="flex justify-center m-8">
-          <ButtonWithHoverIconBack path={"/bulker/categoryProducts/"+product.cat} />
+        {product && (
+          <ButtonWithHoverIconBack path={`/bulker/categoryProducts/${product.category.id}`} />
+        )}
       </div>
       <Footer />
     </>

@@ -1,32 +1,34 @@
 // src/pages/ProductCategories.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-// Importer les images de vos catégories
-import renovationImage from '../assets/fissures/fiss1.jpg';
-import protectionImage from '../assets/polyanes/pol1.jpg';
-import nettoyageImage from '../assets/sacs/sac2.jpg';
-import evacuationImage from '../assets/chiffons/chiff1.jpg';
 import Footer from '../layouts/Footer';
-import Contact from '../sections/Contact';
 import Navbar from '../layouts/NavBar';
 import ButtonWithHoverIconBack from '../components/ButtonWithIconBack';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Loader from '../components/Loader';
-
-const categories = [
-  { id: 'renovation', name: 'Rénovation', image: renovationImage },
-  { id: 'protection', name: 'Protection de surface', image: protectionImage },
-  { id: 'nettoyage', name: 'Nettoyage de la surface', image: evacuationImage },
-  { id: 'evacuation', name: 'Évacuation de déchets', image:  nettoyageImage},
-];
+import { API_URL } from '../config/api';
 
 const ProductCategories = () => {
+  const [categories, setCategories] = useState([]); // État pour stocker les catégories
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
-    // Simulez un temps de chargement avant de terminer le chargement
+    // Appel API pour récupérer les catégories
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/categories`);
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des catégories:', error);
+      }
+    };
+
+    fetchCategories();
+
+    // Simuler un temps de chargement avant d'afficher les composants
     const timer = setTimeout(() => setLoading(false), 3000); // 3 secondes
     return () => clearTimeout(timer);
   }, []);
@@ -36,7 +38,7 @@ const ProductCategories = () => {
       <div className="bg-gray-200">
         <div className='p-10'>
         <h1 className="text-3xl font-bold mb-6 text-blue-900">Produits</h1>
-        <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'><Link to="/bulker/">Accueil |</Link></span>Catégories</h6>
+        <h6 className="text-xl font-bold mb-6"><span className='text-blue-900'><Link to="/">Accueil |</Link></span>Catégories</h6>
         </div>
         {loading ? (
         <Loader />
@@ -53,12 +55,12 @@ const ProductCategories = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="p-4 flex flex-col justify-between flex-grow">
-                <h2 className="text-xl font-bold mb-4">{category.name}</h2>
+                <h2 className="text-xl font-bold mb-1">{category.name}</h2>
+                <p className="mb-4">{category.description}</p>
                 <div className="mt-auto"  style={{ alignSelf: 'flex-end' }} >
                 <Link
                    to={`/bulker/categoryProducts/${category.id}`}
-                  className=" opacity-80 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-900"
-                 
+                  className=" opacity-80 bg-blue-900 text-white py-2 px-4 rounded hover:bg-blue-900"                
                 >
                   Voir les produits
                 </Link>
@@ -71,7 +73,7 @@ const ProductCategories = () => {
       </div>
       {/* <Contact /> */}
       <div className="flex justify-center m-8">
-          <ButtonWithHoverIconBack path={"/bulker/"} />
+          <ButtonWithHoverIconBack path={"/bulker"} />
       </div>
       
       <Footer />

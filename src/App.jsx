@@ -1,52 +1,66 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ProductCategories from './pages/ProductCategories';
-import CategoryProducts from './pages/CategoryProducts';
-import ProductDetails from './pages/ProductDetails';
-import './App.css'
-import Navbar from './layouts/NavBar'
-import Hero from './sections/Hero'
-import Products from './sections/Products'
-import Sustainability from './sections/Sustainability'
-import Contact from './sections/Contact'
-import Footer from './layouts/Footer'
-import AboutUs from './sections/AboutUs'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import './App.css';
+import Navbar from './layouts/NavBar';
+import Hero from './sections/Hero';
+import Products from './sections/Products';
+import Sustainability from './sections/Sustainability';
+import Contact from './sections/Contact';
+import Footer from './layouts/Footer';
+import AboutUs from './sections/AboutUs';
 import Loader from './components/Loader';
+import { API_URL } from './config/api';
+import { useLocation } from 'react-router-dom';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [categories, setCategories] = useState([]); // État pour stocker les catégories
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
-    // Simulez un temps de chargement avant de terminer le chargement
+    // Appel API pour récupérer les catégories
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/categories`);
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des catégories:', error);
+      }
+    };
+
+    fetchCategories();
+
+    // Simuler un temps de chargement avant d'afficher les composants
     const timer = setTimeout(() => setLoading(false), 3000); // 3 secondes
     return () => clearTimeout(timer);
   }, []);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location])
   return (
-    
     <>
-       <Navbar />
-       {loading ? (
+      <Navbar />
+      {loading ? (
         <Loader />
       ) : (
         <>
-      <Hero />
-    <Products />
-    <Sustainability />
-    <AboutUs />
-    <Contact />
+          <Hero />
+          <Products categories={categories} /> {/* Passer les catégories au composant Products */}
+          <Sustainability />
+          <AboutUs />
+          <Contact />
+        </>
+      )}
+      <Footer />
     </>
-    )}
-    <Footer />
- 
-    {/* <Routes>
-        <Route path="/" element={<ProductCategories />} />
-        <Route path="/category/:categoryId" element={<CategoryProducts />} />
-        <Route path="/product/:productId" element={<ProductDetails />} />
-      </Routes> */}
-    </>
-  )
+  );
 }
 
-export default App
+export default App;

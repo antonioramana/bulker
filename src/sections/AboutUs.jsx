@@ -1,7 +1,16 @@
 import React from 'react';
+import { FaCheckCircle, FaClock, FaHeart, FaTrophy } from 'react-icons/fa'; // Import des icônes
 import aboutImage from '../assets/about.jpg';
 
 const AboutUs = () => {
+  // Map des valeurs avec leurs icônes respectives
+  const values = [
+    { name: "Qualité", icon: <FaCheckCircle className="text-blue-900 text-2xl mr-2" /> },
+    { name: "Réactivité", icon: <FaClock className="text-blue-900 text-2xl mr-2" /> },
+    { name: "Fidélité", icon: <FaHeart className="text-blue-900 text-2xl mr-2" /> },
+    { name: "Compétitivité", icon: <FaTrophy className="text-blue-900 text-2xl mr-2" /> },
+  ];
+
   return (
     <section id="about" className="fall-in bg-gray-50 py-12 px-4 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch">
@@ -17,12 +26,31 @@ const AboutUs = () => {
         {/* Text Content */}
         <div className="w-full md:w-1/2 md:pl-8 flex flex-col justify-center h-[400px]">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">À Propos de Bulker</h2>
-          <p className="text-lg text-gray-700 mb-4">
-            Au cœur de l’industrie de la construction, Bulker émerge comme bien plus qu’une simple entreprise de distribution de matériaux de construction. Nous sommes les artisans de votre vision, les partenaires de votre projet, et les gardiens de l’intégrité dans chaque brique, chaque poutre et chaque liaison.
-          </p>
           <p className="text-lg text-gray-700 mb-6">
-            Ensemble, ces valeurs forment le socle sur lequel Bulker se dresse, guidant notre entreprise vers l’excellence et nous permettant de bâtir un avenir solide, pièce par pièce, projet par projet.
+            Expert en négoce de produits de matériaux de constructions, notre équipe saura vous accompagner 
+            et vous orienter vers les solutions les plus adaptées, tout en vous proposant des  <span className="text-lg font-bold text-blue-900">tarifs compétitifs.</span>
           </p>
+
+          {/* Cards Section */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            {values.map((value, index) => (
+              <div
+                key={index}
+                className="bg-white border border-gray-200 shadow-lg rounded-lg p-4 text-center transition transform hover:scale-105 flex items-center justify-center"
+              >
+                {/* Icon + Title on the same line */}
+                {value.icon}
+                <h3 className="text-xl font-semibold text-blue-900">{value.name}</h3>
+              </div>
+            ))}
+          </div>
+
+          {/* Styled Sentence */}
+          <p className="text-lg font-bold text-blue-900 text-center mb-6">
+            Bulker est l'allié qu'il vous faut.
+          </p>
+
+          {/* Contact Button */}
           <div className="flex justify-center">
             <a
               href="#contact"

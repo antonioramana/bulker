@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaUser, FaTag, FaCommentDots } from 'react-icons/fa';
 import bg from '../assets/contact-bg.png';
 import emailjs from '@emailjs/browser';
+import axios from 'axios';
+import axiosInstance from '../config/axiosInstance';
 
 const REACT_APP_EMAILJS_SERVICE_ID = "service_9ribuc8";
 const REACT_APP_EMAILJS_TEMPLATE_ID = "template_kbnyr3u";
@@ -14,16 +16,15 @@ const Contact = () => {
     subject: '',
     message: '',
   });
-  const [submittedData, setSubmittedData] = useState(null);
   const [successMessage, setSuccessMessage] = useState(false);
   const [loading, setLoading] = useState(false); // État pour le chargement
 
   const templateParams = {
-    from_name: formData?.name,
-    from_email: formData?.email,
-    subject: formData?.subject,
+    from_name: formData.name,
+    from_email: formData.email,
+    subject: formData.subject,
     to_name: "bulker",
-    message: formData?.message,
+    message: formData.message,
   }
 
   // Gestion de la modification des champs
@@ -44,10 +45,14 @@ const Contact = () => {
     }
 
     setLoading(true); // Commence le chargement
-    setSubmittedData(formData); // Enregistre les données soumises
 
     try {
+      // Envoi des données au serveur
+      await axiosInstance.post('/api/contacts', formData);
+      // Envoi de l'email
       await emailjs.send(REACT_APP_EMAILJS_SERVICE_ID, REACT_APP_EMAILJS_TEMPLATE_ID, templateParams, REACT_APP_EMAILJS_PUBLIC_KEY);
+      
+      // Réinitialisation du formulaire
       setFormData({
         name: '',
         email: '',
@@ -57,7 +62,8 @@ const Contact = () => {
       setSuccessMessage(true);
       console.log('SUCCESS!');
     } catch (error) {
-      console.log('FAILED...', error.text);
+      console.error('Erreur:', error);
+      alert('Une erreur est survenue. Veuillez réessayer plus tard.');
     } finally {
       setLoading(false); // Termine le chargement
     }
@@ -187,8 +193,8 @@ const Contact = () => {
           </form>
 
           {successMessage && (
-            <div className="mt-6 p-4 bg-green-100 rounded-lg">
-              <h4 className="text-lg font-semibold text-green-700">Message envoyé avec succès :</h4>
+            <div className="mt-6 p-4 bg-green-100 rounded-md text-green-800">
+              Votre message a été envoyé avec succès !
             </div>
           )}
         </div>
